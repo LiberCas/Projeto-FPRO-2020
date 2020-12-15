@@ -1,25 +1,15 @@
 # Projeto-FPRO-2020
 ## FPRO/MIEIC, 2020/21
-## Fulano de Tal (up2020xxxxx)
-## 1MIEIC0X
+## Igor Liberato de Castro (up202000161)
+## 1MIEIC01
 
 ### Objetivo
 
-1. Criar um clone do clássico Sokoban em Pygame...
-
-2. Em alternativa... do clássico x em Pygame.
+1. Criar um jogo computadorizado do jogo de cartas "Blackjack" em Pygame.
 
 ### Repositório de código
 
-1) Link para o repositório do GitHub: https://github.com/@author/xxx
-
-2) Adicionar, como colaborador com permissão de leitura (*role read*), o Prof. da prática:
-
-- https://github.com/AfonsoSalgadoSousa
-- https://github.com/jlopes60
-- https://github.com/nmacedo
-- https://github.com/rpmcruz
-- https://github.com/rcamacho
+1) Link para o repositório do GitHub: https://github.com/LiberCas/Projeto-FPRO-2020
 
 ### Descrição
 
