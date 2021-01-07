@@ -149,11 +149,14 @@ class Game():
         self.window.blit(poker_chip, chip_loc_decks_selection_list[chip_loc-1])
         return chip_loc
     #Função para escrever coisas -----------------------#
-    def write(self, text, size, font, colour, x, y):
+    def write(self, text, size, font, colour, x, y, align="center"):
         font = pygame.font.Font(font, size)
         text_surface = font.render(text, True, colour)
         text_rect = text_surface.get_rect()
-        text_rect.center = (x, y)
+        if align == "center":
+            text_rect.center = (x, y)
+        else:
+            text_rect.midleft = (x, y)
         self.window.blit(text_surface, text_rect)
     #Função que inicia o jogo --------------------------#
     def initialise(self):
@@ -216,77 +219,196 @@ class Game():
             self.reset_keys()
 
     #O JOGO EM SI -----------------------------------------------------------------------------#
+    #Função que cria a tela de regras: --------------------------------------------#
+    def rules(self):
+        self.reset_keys()
+        screenshot = pygame.Surface(self.window.get_size(), 0, self.window)
+        screenshot.blit(self.window, (0, 0))
+        rules1 = pygame.image.load("Rules 1.png")
+        rules2 = pygame.image.load("Rules 2.png")
+        self.window.blit(rules1, (126, 100))
+        pygame.display.update()
+        rule_menu = 1
+        while self.running and not self.R and not self.ESC:
+            self.check_events()
+            if self.ENTER_KEY:
+                if rule_menu == 1:
+                    self.window.blit(screenshot, (0, 0))
+                    self.window.blit(rules2, (126, 100))
+                    pygame.display.update()
+                    rule_menu += 1
+                elif rule_menu == 2:
+                    self.window.blit(screenshot, (0, 0))
+                    pygame.display.update()
+                    break
+            self.reset_keys()
+        self.reset_keys()
     #Função que embaralha as cartas: ----------------------------------------------#
-    # def shuffle(self, decks):
-    #     deck = [("a", "s"), (2, "s"), (3, "s"), (4, "s"), (5, "s"), (6, "s"), (7, "s"), (8, "s"), (9, "s"), (10, "s"), (11, "s"), (12, "s"), (13, "s"), 
-    #     ("a", "c"), (2, "c"), (3, "c"), (4, "c"), (5, "c"), (6, "c"), (7, "c"), (8, "c"), (9, "c"), (10, "c"), (11, "c"), (12, "c"), (13, "c"), 
-    #     ("a", "d"), (2, "d"), (3, "d"), (4, "d"), (5, "d"), (6, "d"), (7, "d"), (8, "d"), (9, "d"), (10, "d"), (11, "d"), (12, "d"), (13, "d"),
-    #     ("a", "h"), (2, "h"), (3, "h"), (4, "h"), (5, "h"), (6, "h"), (7, "h"), (8, "h"), (9, "h"), (10, "h"), (11, "h"), (12, "h"), (13, "h")]
-    #     full_deck = []
-    #     for i in range(decks):
-    #         for j in range(52):
-    #             full_deck.append(deck[j])
-    #     random.shuffle(full_deck)
-    
-    # def check_for_game_over(self):
-    #     if (player_balance <= 0) or (len(schuffled_deck) <= 20) or (self.ESC) or not self.running:
-    #         self.game_over = True
-
-    # def turn(self, deck, player_balance):
-    #     self.reset_keys()
-    #     #Função ask_for_player_bet() pede aposta para o jogador, checa se é possível e devolve aposta
-    #     player_bet = self.ask_for_player_bet(player_balance)
-    #     player_hand = []
-    #     dealer_hand = []
-    #     #Função deal_a_card() retorna um tuplo (carta, baralho após tirar a carta) ao mesmo tempo desenhando na tela a carta em questão
-    #     card1, new_deck = self.deal_a_card("player", deck)
-    #     card2, new_deck  = self.deal_a_card("player", new_deck)
-    #     player_hand.append(card1)
-    #     player_hand.append(card2)
-    #     card1, new_deck = self.deal_a_card("dealer down", new_deck)
-    #     card2, new_deck  = self.deal_a_card("dealer", new_deck)
-    #     dealer_hand.append(card1)
-    #     dealer_hand.append(card2)
-    #     while not self.S_KEY:
-    #         #Função check_events_gameloop() checa o input e executa a função correspondente devolvendo a mão do jogador e o novo baralho
-    #         player_hand, new_deck = self.check_events_gameloop(player_hand, new_deck)
-    #         self.reset_keys()
-    #     self.reset_keys()
-    #     #Função dealer_turn() executa a vez do dealer
-    #     dealer_hand, new_deck = self.dealer_turn(dealer_hand, new_deck)
-    #     #Função compare_hands() compara as mãos dizendo quanto deve ser pago/tirado do jogador no tuplo (valor, sinal)
-    #     player_bet_add, sign = self.compare_hands(dealer_hand, player_hand, player_bet)
-    #     if sign == "+":
-    #         player_bet += player_bet_add
-    #     elif sign == "-":
-    #         player_bet -= player_bet_add
-    #     #Função reset_screen() volta a tela para o estado inicial com o contador igual ao novo balanço do jogador
-    #     self.reset_screen(player_balance)
-    #     return(new_deck, player_balance)
-
-    # def rules(self):
-    #     self.reset_keys()
-    #     screenshot = 
-    #     rules1 = pygame.image.load("Rules 1.png")
-    #     rules2 = pygame.image.load("Rules 1.png")
-    #     self.window.blit(rules1, (126, 100))
-    #     pygame.display.update()
-    #     rule_menu = 1
-    #     while self.running and not self.R and not self.ESC:
-    #         self.check_events()
-    #         if self.ENTER_KEY:
-    #             if rule_menu == 1:
-    #                 self.window.blit(screenshot, (0, 0))
-    #                 self.window.blit(rules2, (126, 100))
-    #                 pygame.display.update()
-    #                 rule_menu += 1
-    #             elif rule_menu == 2:
-    #                 self.window.blit(screenshot, (0, 0))
-    #                 pygame.display.update()
-    #                 break
-    #         self.reset_keys()
-    #     self.reset_keys()
-
+    def shuffle(self, decks):
+        deck = [("a", "s"), (2, "s"), (3, "s"), (4, "s"), (5, "s"), (6, "s"), (7, "s"), (8, "s"), (9, "s"), (10, "s"), ("j", "s"), ("q", "s"), ("k", "s"), 
+        ("a", "c"), (2, "c"), (3, "c"), (4, "c"), (5, "c"), (6, "c"), (7, "c"), (8, "c"), (9, "c"), (10, "c"), ("j", "c"), ("q", "c"), ("k", "c"), 
+        ("a", "d"), (2, "d"), (3, "d"), (4, "d"), (5, "d"), (6, "d"), (7, "d"), (8, "d"), (9, "d"), (10, "d"), ("j", "d"), ("q", "d"), ("k", "d"),
+        ("a", "h"), (2, "h"), (3, "h"), (4, "h"), (5, "h"), (6, "h"), (7, "h"), (8, "h"), (9, "h"), (10, "h"), ("j", "h"), ("q", "h"), ("k", "h")]
+        full_deck = []
+        for i in range(decks):
+            for j in range(52):
+                full_deck.append(deck[j])
+        full_deck = random.shuffle(full_deck)
+        return full_deck
+    #Função que checa se alguma das condições de fim de jogo se verificam: --------------------#
+    def check_for_game_over(self):
+        if (player_balance <= 0) or (len(schuffled_deck) <= 20) or (self.ESC) or not self.running:
+            self.game_over = True
+    #Função que capta a aposta do jogador: --------------------------------------------------#
+    def ask_for_player_bet(self, player_balance):
+        background_game_photo = pygame.image.load("Game Screen.jpg").convert()
+        self.num = False
+        player_bet = 0
+        money_box = pygame.image.load("Money box.png")
+        self.window.blit(money_box, (305, 256))
+        self.write(str(player_bet), 40, "CasinoFlat.ttf", (255, 255, 255), 345, 316, "midleft")
+        pygame.display.update()
+        while self.running:
+            self.check_written()
+            if type(self.num) == int:
+                player_bet = int(str(player_bet) + str(self.num))
+                if player_bet <= player_balance:
+                    self.window.blit(money_box, (305, 256))
+                    self.write(str(player_bet), 40, "CasinoFlat.ttf", (255, 255, 255), 345, 316, "midleft")
+                    self.reset_keys()
+                    self.num = False
+                elif player_balance <= player_bet:
+                    player_bet = 0
+                    self.window.blit(background_game_photo, (0,0))
+                    self.window.blit(money_box, (305, 256))
+                    self.write(str(player_bet), 40, "CasinoFlat.ttf", (255, 255, 255), 345, 316, "midleft")
+                    self.write("Please write in a value smaller than your balance", 20, "CasinoFlat.ttf", (255, 255, 255), 400, 363)
+                    self.reset_keys()
+                    self.num = False
+            elif self.ENTER_KEY == True:
+                if player_bet == 0:
+                    self.window.blit(background_game_photo, (0,0))
+                    self.window.blit(money_box, (305, 256))
+                    self.write(str(player_bet), 40, "CasinoFlat.ttf", (255, 255, 255), 345, 316, "midleft")
+                    self.write("Please write in a value", 20, "CasinoFlat.ttf", (255, 255, 255), 400, 363)
+                    self.reset_keys()
+                else:
+                    self.window.blit(background_game_photo, (0, 0))
+                    self.num = False
+                    self.reset_keys()
+                    pygame.display.update()
+                    return(player_bet)
+            elif self.ESC == True:
+                #Are_you_sure() function --------------------#
+                self.running = False
+            elif self.BACK_KEY == True:
+                self.window.blit(background_game_photo, (0,0))
+                self.window.blit(money_box, (305, 256))
+                player_bet = player_bet//10
+                self.write(str(player_bet), 40, "CasinoFlat.ttf", (255, 255, 255), 345, 316, "midleft")
+                self.reset_keys()
+                self.num = False
+            pygame.display.update()     
+    #Função que checa o valor de número escrito: -------------------#
+    def check_written(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running, self.playing = False, False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.ESC = True
+                if event.key == pygame.K_RETURN:
+                    self.ENTER_KEY = True
+                if event.key == pygame.K_BACKSPACE:
+                    self.BACK_KEY = True
+                if event.key == pygame.K_0:
+                    self.num = 0
+                if event.key == pygame.K_1:
+                    self.num = 1
+                if event.key == pygame.K_2:
+                    self.num = 2
+                if event.key == pygame.K_3:
+                    self.num = 3
+                if event.key == pygame.K_4:
+                    self.num = 4
+                if event.key == pygame.K_5:
+                    self.num = 5
+                if event.key == pygame.K_6:
+                    self.num = 6
+                if event.key == pygame.K_7:
+                    self.num = 7
+                if event.key == pygame.K_8:
+                    self.num = 8
+                if event.key == pygame.K_9:
+                    self.num = 9
+    #Função que move o gráfico da carta do bolo para a localização final:-------------#
+    def move_card(self, graphic, person, hand):
+        final_loc_h = 0
+        final_loc_w = 300
+        if person == "player":
+            final_loc_h = 600
+        else:
+            final_loc_h = 200
+        for card in range(len(hand)):
+            final_loc_w += 30
+        start_loc = [12, 10]
+        h_factor = (final_loc_h - start_loc[1])/100
+        w_factor = (final_loc_w - start_loc[0])/100
+        current_loc = start_loc
+        screenshot = pygame.Surface(self.window.get_size(), 0, self.window)
+        screenshot.blit(self.window, (0, 0))
+        while current_loc[0] < final_loc_w:
+            self.window.blit(screenshot, (0, 0))
+            self.window.blit(graphic, current_loc)
+            current_loc[0] += w_factor
+            current_loc[1] += h_factor
+            pygame.time.delay(30)
+            pygame.display.update()
+        self.reset_keys()
+    # Função que dá uma carta para o jogador/dealer: -----------------#
+    def deal_a_card(self, person, deck, hand):
+        if person == "dealer_down":
+            card = "down"
+            graphic = pygame.image.load("card.png")
+        else:
+            card = deck.pop(0)
+            cardname = "{a}{b}.png".format(a=str(card[0]), b=card[1])
+            graphic = pygame.image.load(cardname)
+        self.move_card(graphic, person, hand)
+        return card, deck
+    #Função que executa as funções relativas à vez do indivíduo/maquina: ---------------#
+    def turn(self, deck, player_balance):
+        while self.running:
+            self.reset_keys()
+            player_bet = self.ask_for_player_bet(player_balance)
+            player_hand = []
+            dealer_hand = []
+            # #Função deal_a_card() retorna um tuplo (carta, baralho após tirar a carta) ao mesmo tempo desenhando na tela a carta em questão
+            card1, new_deck = self.deal_a_card("player", deck, player_hand)
+            player_hand.append(card1)
+            # card2, new_deck  = self.deal_a_card("player", new_deck, player_hand)
+            # player_hand.append(card2)
+            # card1, new_deck = self.deal_a_card("dealer_down", new_deck, dealer_hand)
+            # dealer_hand.append(card1)
+            # card2, new_deck  = self.deal_a_card("dealer_down", new_deck, dealer_hand)
+            # dealer_hand.append(card2)
+            # while not self.S_KEY:
+            #     #Função check_events_gameloop() checa o input e executa a função correspondente devolvendo a mão do jogador e o novo baralho
+            #     player_hand, new_deck = self.check_events_gameloop(player_hand, new_deck)
+            #     self.reset_keys()
+            # self.reset_keys()
+            # #Função dealer_turn() executa a vez do dealer
+            # dealer_hand, new_deck = self.dealer_turn(dealer_hand, new_deck)
+            # #Função compare_hands() compara as mãos dizendo quanto deve ser pago/tirado do jogador no tuplo (valor, sinal)
+            # player_bet_add, sign = self.compare_hands(dealer_hand, player_hand, player_bet)
+            # if sign == "+":
+            #     player_bet += player_bet_add
+            # elif sign == "-":
+            #     player_bet -= player_bet_add
+            # #Função reset_screen() volta a tela para o estado inicial com o contador igual ao novo balanço do jogador
+            # self.reset_screen(player_balance)
+            # return(new_deck, player_balance)
+            
     #Função central do jogo: -------------------------------------------------------#
     def begin_game(self, players, decks):
         self.reset_keys()
@@ -294,12 +416,10 @@ class Game():
         background_game_photo = pygame.image.load("Game Screen.jpg").convert()
         self.window.blit(background_game_photo, (0, 0))
         pygame.display.update()
-        #self.rules()
-        #self.reset_keys()  
-        # shuffled_deck = self.shuffle(decks)
-        # while self.running:
-        #     while not self.game_over:
-        #         shuffled_deck, player_balance = self.turn(shuffled_deck, player_balance)
+        self.rules() 
+        shuffled_deck = self.shuffle(decks)
+        while self.running: #and not self.game_over:
+            shuffled_deck, player_balance = self.turn(shuffled_deck, player_balance)
         #     #if self.ESC:
         #         #Função abre tela perguntando se jogador tem certeza que quer sair
         #         #self.are_you_sure()
