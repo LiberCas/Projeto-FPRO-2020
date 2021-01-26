@@ -37,16 +37,16 @@
 
 ### Tarefas
 
-1. fazer a interface do menu e regras
-2. identificar se o jogador clicou em "jogar"
-3. atribuir ao jogador um valor em fichas
-4. captar a aposta do jogador
-5. dar as cartas iniciais ao jogador e ao dealer
-6. captar o input do jogador e dar-lhe novas cartas com base nisso
-7. criar função para o comportamento do dealer
-8. identificar condições de vitória/perda
-9. dar/retirar dos jogadores as fichas relativas à sua vitória/perda
-10. identificar se o jogador que jogar novamente ou sair
-11. Identificar fim do deck de cartas
+1. ~~fazer a interface do menu e regras~~
+2. ~~identificar se o jogador clicou em "jogar"~~
+3. ~~atribuir ao jogador um valor em fichas~~
+4. ~~captar a aposta do jogador~~
+5. ~~dar as cartas iniciais ao jogador e ao dealer~~
+6. ~~captar o input do jogador e dar-lhe novas cartas com base nisso~~
+7. ~~criar função para o comportamento do dealer~~
+8. ~~identificar condições de vitória/perda~~
+9. ~~dar/retirar dos jogadores as fichas relativas à sua vitória/perda~~
+10. ~~identificar se o jogador que jogar novamente ou sair~~
+11. ~~Identificar fim do deck de cartas~~
 
-- Atualizado a última vez em 15/12/2020
+- Atualizado a última vez em 25/01/2021
